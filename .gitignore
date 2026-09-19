@@ -1,0 +1,18 @@
+# --- Dati grezzi e pesanti (riscaricabili dal notebook) ---
+dati_grezzi_inail/
+*.csv
+*.zip
+
+# --- Ambiente virtuale (si ricrea con requirements.txt) ---
+data-analyst/
+venv/
+.venv/
+
+# --- File temporanei di Jupyter e Python ---
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# --- File di sistema ---
+.DS_Store
+Thumbs.db

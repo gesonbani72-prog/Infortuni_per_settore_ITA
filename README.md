@@ -1,0 +1,76 @@
+# Analisi degli infortuni sul lavoro in Italia
+
+Analisi degli infortuni sul lavoro in Italia per **settore, regione e anno**, con stima dei **costi**, a supporto di una decisione di investimento in prevenzione.
+
+---
+
+## Contesto
+
+Il progetto nasce da una richiesta reale: una startup del settore **sicurezza sul lavoro**, che sviluppa un dispositivo di protezione individuale (DPI), aveva bisogno di capire **su quali settori e regioni** concentrare il proprio investimento.
+
+L'analisi in questo repository risponde a quella domanda dal lato dei **dati**: individua dove si concentrano gli infortuni, in quali comparti, e quanto costano. Le informazioni riservate del cliente e del prodotto non sono incluse: qui è documentata solo l'analisi dei dati pubblici.
+
+## Domande di analisi
+
+1. Quanti infortuni si registrano per settore, regione e anno?
+2. Come si distribuisce il rischio una volta rapportato al numero di imprese/addetti?
+3. Quali comparti combinano alta frequenza di infortuni e alti costi?
+4. Su quali settori/regioni conviene indirizzare gli investimenti in prevenzione?
+
+## Fonti dati
+
+L'analisi combina tre fonti pubbliche:
+
+| Fonte | Cosa fornisce | Formato | Aggiornamento |
+|-------|---------------|---------|---------------|
+| **INAIL** | Infortuni sul lavoro (per regione, settore, anno) | CSV (zip) | Semestrale (luglio / dicembre) |
+| **ISTAT ASIA** | Imprese e addetti per settore | *(in lavorazione)* | *(in lavorazione)* |
+| **INPS** | Retribuzioni / costo del lavoro per settore | *(in lavorazione)* | *(in lavorazione)* |
+
+## Metodologia
+
+L'approccio privilegia la **verifica empirica** delle fonti prima di costruire il dataset finale:
+
+- **Scelta della fonte INAIL:** confronto tra API JSON e file CSV scaricabili. L'API è stata testata su tutte le combinazioni anno/mese (2001–2025) e scartata perché copre solo una finestra parziale e recente; si è optato per i file CSV, più completi.
+- **Analisi della struttura dei file:** verifica su file campione di duplicati interni, periodo di accadimento coperto e sovrapposizione tra le versioni semestrali dello stesso anno.
+- **Regola della finestra mobile:** confermato empiricamente che ogni file copre 5 anni di accadimento; su questa base sono stati scelti i file minimi necessari a coprire l'intero storico senza sovrapposizioni né buchi.
+- **Perimetro finale INAIL:** accadimento **2014–2024** (11 anni), **~6,9 milioni di righe**, nessuna sovrapposizione, nessun buco.
+
+## Struttura del progetto
+
+```
+Infortuni_per_settore_ITA/
+├── Analisi_infortuni_sul_lavoro_ITA.ipynb   # notebook principale (analisi)
+├── README.md                                # questo file
+├── requirements.txt                         # librerie necessarie
+└── dati_grezzi_inail/                        # dati scaricati (NON versionati)
+```
+
+> **Nota:** i dati grezzi (file `.zip` e CSV consolidato) non sono inclusi nel repository perché pesanti e riscaricabili tramite il notebook. Il notebook li scarica e li ricostruisce in autonomia.
+
+## Come eseguire il progetto
+
+1. Creare e attivare un ambiente virtuale Python.
+2. Installare le librerie:
+   ```
+   pip install -r requirements.txt
+   ```
+3. Aprire `Analisi_infortuni_sul_lavoro_ITA.ipynb` in VS Code (o Jupyter) e selezionare l'ambiente come kernel.
+4. Eseguire le celle in ordine: il notebook scarica i dati e costruisce il dataset finale.
+
+**Tecnologie:** Python (pandas, numpy, matplotlib, seaborn, requests), Jupyter Notebook.
+
+## Stato del progetto
+
+🚧 **Work in progress.**
+
+- [x] Acquisizione e consolidamento dati INAIL (infortuni, 2014–2024)
+- [ ] Acquisizione dati ISTAT ASIA (imprese e addetti)
+- [ ] Acquisizione dati INPS (retribuzioni)
+- [ ] Pulizia e decodifica (tipologiche INAIL: ATECO, province, esito)
+- [ ] Analisi incrociata e calcolo indicatori di rischio/costo
+- [ ] Visualizzazioni e sintesi degli insight
+
+## Autore
+
+**Geson Bani** — progetto sviluppato nell'ambito del percorso di formazione in data analysis.
