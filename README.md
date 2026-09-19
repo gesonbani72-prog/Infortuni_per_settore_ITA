@@ -1,6 +1,6 @@
 # Analisi degli infortuni sul lavoro in Italia
 
-Analisi degli infortuni sul lavoro in Italia per **settore, regione e anno**, con stima dei **costi**, a supporto di una decisione di investimento in prevenzione.
+Analisi **end-to-end** degli infortuni sul lavoro in Italia per **settore, regione e anno**, con stima dei **costi**, a supporto di una decisione di investimento in prevenzione. Il progetto copre l'intera filiera: dall'acquisizione e analisi dei dati con **Python** alla presentazione degli insight con una dashboard interattiva in **Power BI**.
 
 ---
 
@@ -8,7 +8,7 @@ Analisi degli infortuni sul lavoro in Italia per **settore, regione e anno**, co
 
 Il progetto nasce da una richiesta reale: una startup del settore **sicurezza sul lavoro**, che sviluppa un dispositivo di protezione individuale (DPI), aveva bisogno di capire **su quali settori e regioni** concentrare il proprio investimento.
 
-L'analisi in questo repository risponde a quella domanda dal lato dei **dati**: individua dove si concentrano gli infortuni, in quali comparti, e quanto costano. Le informazioni riservate del cliente e del prodotto non sono incluse: qui è documentata solo l'analisi dei dati pubblici.
+L'analisi in questo repository risponde a quella domanda dal lato dei **dati**: individua dove si concentrano gli infortuni, in quali comparti, e quanto costano. Le informazioni riservate del cliente e del prodotto non sono incluse: qui è documentata solo l'analisi dei dati pubblici e la relativa dashboard di insight.
 
 ## Domande di analisi
 
@@ -36,13 +36,23 @@ L'approccio privilegia la **verifica empirica** delle fonti prima di costruire i
 - **Regola della finestra mobile:** confermato empiricamente che ogni file copre 5 anni di accadimento; su questa base sono stati scelti i file minimi necessari a coprire l'intero storico senza sovrapposizioni né buchi.
 - **Perimetro finale INAIL:** accadimento **2014–2024** (11 anni), **~6,9 milioni di righe**, nessuna sovrapposizione, nessun buco.
 
+## Dalla dati alla decisione: la dashboard Power BI
+
+La fase finale del progetto traduce l'analisi in una **dashboard interattiva in Power BI**, pensata per chi deve prendere le decisioni di investimento. La dashboard incrocia le tre fonti per evidenziare:
+- i settori e le regioni a maggiore **frequenza** di infortuni;
+- il **rischio relativo** (infortuni rapportati a imprese/addetti);
+- la **stima dei costi** associati, per individuare dove la prevenzione ha maggiore impatto.
+
+> Nel repository sono inclusi solo gli elementi relativi all'analisi dei dati (infortuni per settore, regione e costi). Il materiale riservato del cliente e la scheda prodotto non sono pubblicati.
+
 ## Struttura del progetto
 
 ```
 Infortuni_per_settore_ITA/
-├── Analisi_infortuni_sul_lavoro_ITA.ipynb   # notebook principale (analisi)
+├── Analisi_infortuni_sul_lavoro_ITA.ipynb   # notebook principale (acquisizione + analisi)
 ├── README.md                                # questo file
 ├── requirements.txt                         # librerie necessarie
+├── dashboard/                                # dashboard Power BI (.pbix) — da aggiungere
 └── dati_grezzi_inail/                        # dati scaricati (NON versionati)
 ```
 
@@ -57,8 +67,9 @@ Infortuni_per_settore_ITA/
    ```
 3. Aprire `Analisi_infortuni_sul_lavoro_ITA.ipynb` in VS Code (o Jupyter) e selezionare l'ambiente come kernel.
 4. Eseguire le celle in ordine: il notebook scarica i dati e costruisce il dataset finale.
+5. La dashboard Power BI (`.pbix`) si apre con **Power BI Desktop** e utilizza il dataset prodotto dal notebook.
 
-**Tecnologie:** Python (pandas, numpy, matplotlib, seaborn, requests), Jupyter Notebook.
+**Tecnologie:** Python (pandas, numpy, matplotlib, seaborn, requests), Jupyter Notebook, Power BI (DAX, Power Query).
 
 ## Stato del progetto
 
@@ -70,6 +81,7 @@ Infortuni_per_settore_ITA/
 - [ ] Pulizia e decodifica (tipologiche INAIL: ATECO, province, esito)
 - [ ] Analisi incrociata e calcolo indicatori di rischio/costo
 - [ ] Visualizzazioni e sintesi degli insight
+- [ ] Dashboard interattiva in Power BI
 
 ## Autore
 
